@@ -10,9 +10,9 @@
 </head>
 <body>
     <div id="app">
-        <p>x <input v-model="x" /></p>
-        <p>+</p>
-        <p>y <input v-model="y"/></p>
+        <p>x  <input v-model="x" /></p>
+        <p>op <input v-model="op"></p>
+        <p>y  <input v-model="y"/></p>
         <p>-----------------------------------------</p>
         <p>= <span v-text="result"></span></p>
     </div>
@@ -23,7 +23,7 @@
         }
         let calc = new Vue({
             el: '#app',
-            data: {x: 0, y: 0, lastResult: 0},
+            data: {x: 0, y: 0, op:'+', lastResult: 0},
             computed: {
                 result: function () {
                     let x = parseFloat(this.x);
@@ -36,7 +36,22 @@
                         return this.lastResult;
                     }
 
-                    this.lastResult = x + y;
+                    switch (this.op) {
+                        case '+':
+                            this.lastResult = x + y;
+                            break;
+                        case '-':
+                            this.lastResult = x - y;
+                            break;
+                        case '*':
+                            this.lastResult = x * y;
+                            break;
+                        case '/':
+                            this.lastResult = x / y;
+                            break;
+                        default:
+                            break;
+                    }
 
                     return this.lastResult;
                 }
