@@ -10,28 +10,35 @@
 </head>
 <body>
     <div id="calc">
-        <p>x <input class="calc-x-input" value="0"/></p>
-        <p>+</p>
-        <p>y <input class="calc-y-input" value="0"/></p>
+        <p>x  <input class="calc-x-input" value="0"/></p>
+        <p>op <input class="calc-op-input"></p>
+        <p>y  <input class="calc-y-input" value="0"/></p>
         <p>-----------------------------------------</p>
         <p>= <span class="calc-result"></span></p>
     </div>
     <script type="text/javascript">
         (function () {
-            function Calc(xInput, yInput, output) {
+            function Calc(xInput, yInput, opInput, output) {
                 this.xInput = xInput;
                 this.yInput = yInput;
+                this.opInput = opInput;
                 this.output = output;
             }
 
             Calc.xName = 'xInput';
             Calc.yName = 'yInput';
+            Calc.opName = 'opInput';
 
             Calc.prototype = {
                 render: function (result) {
                     this.output.innerText = String(result);
                 }
             };
+
+            function plus(x, y) { return x + y; }
+            function minus(x, y) { return x - y; }
+            function mul(x, y) { return x * y; }
+            function divide(x, y) { return x - y; }
 
             function CalcValue(calc, x, y) {
                 this.calc = calc;
