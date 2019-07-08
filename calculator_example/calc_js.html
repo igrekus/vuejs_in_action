@@ -11,7 +11,7 @@
 <body>
     <div id="calc">
         <p>x  <input class="calc-x-input" value="0"/></p>
-        <p>op <input class="calc-op-input"></p>
+        <p>op <input class="calc-op-input" value="+"></p>
         <p>y  <input class="calc-y-input" value="0"/></p>
         <p>-----------------------------------------</p>
         <p>= <span class="calc-result"></span></p>
@@ -38,26 +38,45 @@
             function plus(x, y) { return x + y; }
             function minus(x, y) { return x - y; }
             function mul(x, y) { return x * y; }
-            function divide(x, y) { return x - y; }
+            function divide(x, y) { return x / y; }
 
-            function CalcValue(calc, x, y) {
+            function CalcValue(calc, x, y, op) {
                 this.calc = calc;
                 this.x = x;
                 this.y = y;
-                this.result = x + y;
+                this.op = op;
+                this.result = this.op(x, y);
             }
 
             CalcValue.prototype = {
                 copyWith: function (name, value) {
                     var number = parseFloat(value);
                     if (isNaN(number) || !isFinite(number)) {
+                        if (name === Calc.opName) {
+                            let op = plus;
+                            switch (value) {
+                                case '+':
+                                    op = plus;
+                                    break;
+                                case '-':
+                                    op = minus;
+                                    break;
+                                case '*':
+                                    op = mul;
+                                    break;
+                                case '/':
+                                    op = divide;
+                                    break;
+                            }
+                            return new CalcValue(this.calc, this.x, this.y, op);
+                        }
                         return this;
                     }
                     if (name === Calc.xName) {
-                        return new CalcValue(this.calc, number, this.y);
+                        return new CalcValue(this.calc, number, this.y, this.op);
                     }
                     if (name === Calc.yName) {
-                        return new CalcValue(this.calc, this.x, number);
+                        return new CalcValue(this.calc, this.x, number, this.op);
                     }
                     return this;
                 },
@@ -70,13 +89,15 @@
                 var calc = new Calc(
                     elem.querySelector('input.calc-x-input'),
                     elem.querySelector('input.calc-y-input'),
+                    elem.querySelector('input.calc-op-input'),
                     elem.querySelector('span.calc-result')
                 );
                 var lastValues = new CalcValue(
                     calc,
                     parseFloat(calc.xInput.value),
-                    parseFloat(calc.yInput.value)
-                ) ;
+                    parseFloat(calc.yInput.value),
+                    plus
+                );
                 var handleCalcEvent = function handleCalcEvent(e) {
                     var newValues = lastValues;
                     var elem = e.target;
@@ -92,6 +113,13 @@
                             newValues =
                                 lastValues.copyWith(
                                     Calc.yName,
+                                    elem.value
+                                );
+                            break;
+                        case calc.opInput:
+                            newValues =
+                                lastValues.copyWith(
+                                    Calc.opName,
                                     elem.value
                                 );
                             break;
