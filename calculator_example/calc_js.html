@@ -103,25 +103,13 @@
                     var elem = e.target;
                     switch (elem) {
                         case calc.xInput:
-                            newValues =
-                                lastValues.copyWith(
-                                    Calc.xName,
-                                    elem.value
-                                );
+                            newValues = lastValues.copyWith(Calc.xName, elem.value);
                             break;
                         case calc.yInput:
-                            newValues =
-                                lastValues.copyWith(
-                                    Calc.yName,
-                                    elem.value
-                                );
+                            newValues = lastValues.copyWith(Calc.yName, elem.value);
                             break;
                         case calc.opInput:
-                            newValues =
-                                lastValues.copyWith(
-                                    Calc.opName,
-                                    elem.value
-                                );
+                            newValues = lastValues.copyWith(Calc.opName, elem.value);
                             break;
                     }
                     if (newValues !== lastValues) {
