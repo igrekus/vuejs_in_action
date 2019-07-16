@@ -15,11 +15,53 @@
     </div>
 
     <script type='text/javascript'>
+        var APP_LOG_LIFECYCLE_EVENTS = true;
         var webstore = new Vue({
             el: '#app',
             data: {
                 sitename: "Vue.js Pet shop"
+            },
+            beforeCreate: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeCreate');
+                }
+            },
+            created: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('created');
+                }
+            },
+            beforeMount: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeMount');
+                }
+            },
+            mounted: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('mounted');
+                }
+            },
+            beforeUpdate: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeUpdate');
+                }
+            },
+            updated: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('updated');
+                }
+            },
+            beforeDestroy: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeDestroy');
+                }
+            },
+            destroyed: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('destroyed');
+                }
             }
+
         });
     </script>
 </body>
