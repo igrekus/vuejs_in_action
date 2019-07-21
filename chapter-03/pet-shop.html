@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en' xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang='en' xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset='UTF-8'>
     <title>Pet shop</title>
@@ -25,6 +25,7 @@
                     <p class="price">
                         {{ product.price | formatPrice }}
                     </p>
+                    <button class="default" v-on:click="addToCart(product.id)">Add to cart</button>
                 </div>
             </div>
         </main>
@@ -43,7 +44,12 @@
                     price: 2000,
                     image: 'assets/images/product-fullsize.png'
                 },
-
+                cart: [],
+            },
+            methods: {
+                addToCart: function (productId) {
+                    this.cart.push(productId);
+                },
             },
             filters: {
                 formatPrice: price => {
