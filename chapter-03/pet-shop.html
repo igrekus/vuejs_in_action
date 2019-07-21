@@ -9,8 +9,9 @@
 </head>
 <body>
     <div id='app'>
-        <header>
-            <h1 v-text="sitename"></h1>
+        <header class="row card-header">
+            <h1 v-text="sitename" class="col"></h1>
+            <div class="col">User: {{ fullName }}</div>
         </header>
         <main>
             <div class="row product">
@@ -45,6 +46,15 @@
                     image: 'assets/images/product-fullsize.png'
                 },
                 cart: [],
+                user: {
+                    firstName: 'Crazy',
+                    lastName: 'Catlady'
+                }
+            },
+            computed: {
+                fullName: function () {
+                    return `${this.user.firstName} ${this.user.lastName}`;
+                }
             },
             methods: {
                 addToCart: function (productId) {
