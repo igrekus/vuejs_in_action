@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rect calc</title>
+    <script src="../vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <p>Area is: {{ area }}</p>
+        <p>
+            <button v-on:click="length += 1">++ length</button>
+            <button v-on:click="width += 1">++ width</button>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                length: 5,
+                width: 3
+            },
+            computed: {
+                area: function () {
+                    return this.width * this.length;
+                }
+            },
+            watch: {
+                length: function (newVal, oldVal) {
+                    console.log(`length, old: ${oldVal}, new: ${newVal}`);
+                },
+                width: function (newVal, oldVal) {
+                    console.log(`width, old: ${oldVal}, new: ${newVal}`);
+                },
+                area: function (newVal, oldVal) {
+                    console.log(`area, old: ${oldVal}, new: ${newVal}`);
+                }
+            },
+            beforeUpdate: function () {
+                console.log('Data changes before output is updated.');
+            }
+        });
+    </script>
+</body>
+</html>
