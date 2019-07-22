@@ -22,7 +22,7 @@
             </div>
         </header>
         <main>
-            <div class="row product">
+            <div class="row product" v-if="showProduct">
                 <div class="col">
                     <figure>
                         <img v-bind:src="product.image">
