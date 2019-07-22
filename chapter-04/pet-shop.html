@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang='en' xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-text="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset='UTF-8'>
+    <title>Pet shop</title>
+    <script src='../vue.js'></script>
+    <link rel='stylesheet' type='text/css' href='assets/css/app.css' />
+    <link rel='stylesheet' href='../bootstrap/css/bootstrap.css'>
+</head>
+<body>
+    <div id='app'>
+        <header class="navbar">
+            <div class="navbar navbar-default">
+                <h1 v-text="sitename" class="col"></h1>
+            </div>
+            <div class="nav navbar-nav navbar-right cart">
+                <button v-on:click="showCheckout" type="button" class="btn btn-light btn-lg">
+                    <span class="glyphicon glyphicon-shopping-cart">
+                        {{ cartItemCount }} 🛒 Checkout
+                    </span>
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="row product">
+                <div class="row" v-if="showProduct">
+                    <div class="col-md-2 offset-1">
+                        <figure>
+                            <img v-bind:src="product.image">
+                        </figure>
+                    </div>
+                    <div class="col-md-6 offset-2 description">
+                        <h1 v-text="product.title"></h1>
+                        <p v-html="product.description"></p>
+                        <p class="price">
+                            {{ product.price | formatPrice }}
+                        </p>
+                        <button type="button" class="btn btn-primary btn-lg" v-on:click="addToCart(product.id)" v-if="canAddToCart">
+                            Add to cart
+                        </button>
+                        <button type="button" disabled="true" class="btn btn-primary btn-lg" v-else>
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+                <div v-else class="row">
+                    <div class="col-md-6 offset-1">
+                        <strong>First name:</strong>
+                        <input v-model="order.firstName" class="form-control" />
+                    </div>
+                    <div class="col-md-6 offset-1">
+                        <strong>Last name:</strong>
+                        <input v-model="order.lastName" class="form-control">
+                    </div>
+                    <div class="col-md-12 verify ">
+                        <pre>
+                            First name: {{ order.firstName }}
+                            Last name: {{ order.lastName }}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type='text/javascript'>
+        var APP_LOG_LIFECYCLE_EVENTS = false;
+        var webstore = new Vue({
+            el: '#app',
+            data: {
+                sitename: 'Vue.js Pet shop',
+                product: {
+                    id: 1001,
+                    title: 'Cat Food, 25lb bag',
+                    description: 'A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.',
+                    price: 2000,
+                    image: 'assets/images/product-fullsize.png',
+                    availableInventory: 5,
+                },
+                cart: [],
+                order: {
+                    firstName: 'Crazy',
+                    lastName: 'Catlady'
+                },
+                showProduct: true,
+            },
+            computed: {
+                fullName: function () {
+                    return `${this.user.firstName} ${this.user.lastName}`;
+                },
+                cartItemCount: function () {
+                    return this.cart.length || '';
+                },
+                canAddToCart: function () {
+                    return this.product.availableInventory > this.cartItemCount;
+                }
+            },
+            methods: {
+                addToCart: function (productId) {
+                    this.cart.push(productId);
+                },
+                showCheckout: function () {
+                    console.log("toggle");
+                    this.showProduct = !this.showProduct;
+                }
+            },
+            filters: {
+                formatPrice: price => {
+                    if (!price)
+                        return '';
+
+                    if (price < 99999)
+                        return `$${(price / 100).toFixed(2)}`;
+
+                    let priceFloat = (price / 100).toFixed(2);
+                    let priceArray = String(priceFloat).split('').reverse();
+                    let index = 3;
+                    while (priceArray.length > index + 3) {
+                        priceArray.splice(index + 3, 0, ',');
+                        index += 4;
+                    }
+                    return `$${priceArray.reverse().join('')}`;
+                }
+            },
+            beforeCreate: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeCreate');
+                }
+            },
+            created: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('created');
+                }
+            },
+            beforeMount: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeMount');
+                }
+            },
+            mounted: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('mounted');
+                }
+            },
+            beforeUpdate: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeUpdate');
+                }
+            },
+            updated: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('updated');
+                }
+            },
+            beforeDestroy: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('beforeDestroy');
+                }
+            },
+            destroyed: () => {
+                if (APP_LOG_LIFECYCLE_EVENTS) {
+                    console.log('destroyed');
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
