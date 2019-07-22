@@ -14,8 +14,10 @@
                 <h1 v-text="sitename" class="col"></h1>
             </div>
             <div class="nav navbar-nav navbar-right cart">
-                <button class="btn btn-light glyphicon glyphicon-shopping-cart">
-                    {{ cartItemCount }} Checkout
+                <button v-on:click="showCheckout" type="button" class="btn btn-light btn-lg">
+                    <span class="glyphicon glyphicon-shopping-cart">
+                        {{ cartItemCount }} 🛒 Checkout
+                    </span>
                 </button>
             </div>
         </header>
@@ -32,8 +34,8 @@
                     <p class="price">
                         {{ product.price | formatPrice }}
                     </p>
-                    <button class="btn btn-primary btn-default" v-on:click="addToCart(product.id)" v-if="canAddToCart">Add to cart</button>
-                    <button class="btn btn-secondary disabled" v-else>Add to cart</button>
+                    <button type="button" class="btn btn-primary btn-default" v-on:click="addToCart(product.id)" v-if="canAddToCart">Add to cart</button>
+                    <button type="button" class="btn btn-secondary disabled" v-else>Add to cart</button>
                 </div>
             </div>
         </main>
@@ -57,14 +59,15 @@
                 user: {
                     firstName: 'Crazy',
                     lastName: 'Catlady'
-                }
+                },
+                showProduct: true,
             },
             computed: {
                 fullName: function () {
                     return `${this.user.firstName} ${this.user.lastName}`;
                 },
                 cartItemCount: function () {
-                    return this.cart.length.toString() || '';
+                    return this.cart.length || '';
                 },
                 canAddToCart: function () {
                     return this.product.availableInventory > this.cartItemCount;
@@ -74,6 +77,10 @@
                 addToCart: function (productId) {
                     this.cart.push(productId);
                 },
+                showCheckout: function () {
+                    console.log("toggle");
+                    this.showProduct = !this.showProduct;
+                }
             },
             filters: {
                 formatPrice: price => {
