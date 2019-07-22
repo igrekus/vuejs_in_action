@@ -14,7 +14,7 @@
                 <h1 v-text="sitename" class="col"></h1>
             </div>
             <div class="nav navbar-nav navbar-right cart">
-                <button class="glyphicon glyphicon-shopping-cart">
+                <button class="btn btn-light glyphicon glyphicon-shopping-cart">
                     {{ cartItemCount }} Checkout
                 </button>
             </div>
@@ -32,7 +32,8 @@
                     <p class="price">
                         {{ product.price | formatPrice }}
                     </p>
-                    <button class="default" v-on:click="addToCart(product.id)" v-show="canAddToCart">Add to cart</button>
+                    <button class="btn btn-primary btn-default" v-on:click="addToCart(product.id)" v-if="canAddToCart">Add to cart</button>
+                    <button class="btn btn-secondary disabled" v-else>Add to cart</button>
                 </div>
             </div>
         </main>
