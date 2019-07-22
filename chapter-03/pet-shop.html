@@ -14,9 +14,9 @@
                 <h1 v-text="sitename" class="col"></h1>
             </div>
             <div class="nav navbar-nav navbar-right cart">
-                <span class="glyphicon glyphicon-shopping-cart">
+                <button class="glyphicon glyphicon-shopping-cart">
                     {{ cartItemCount }} Checkout
-                </span>
+                </button>
             </div>
         </header>
         <main>
@@ -32,7 +32,7 @@
                     <p class="price">
                         {{ product.price | formatPrice }}
                     </p>
-                    <button class="default" v-on:click="addToCart(product.id)">Add to cart</button>
+                    <button class="default" v-on:click="addToCart(product.id)" v-show="canAddToCart">Add to cart</button>
                 </div>
             </div>
         </main>
@@ -49,7 +49,8 @@
                     title: 'Cat Food, 25lb bag',
                     description: 'A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.',
                     price: 2000,
-                    image: 'assets/images/product-fullsize.png'
+                    image: 'assets/images/product-fullsize.png',
+                    availableInventory: 5,
                 },
                 cart: [],
                 user: {
@@ -63,6 +64,9 @@
                 },
                 cartItemCount: function () {
                     return this.cart.length.toString() || '';
+                },
+                canAddToCart: function () {
+                    return this.product.availableInventory > this.cartItemCount;
                 }
             },
             methods: {
