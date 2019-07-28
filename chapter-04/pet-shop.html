@@ -91,6 +91,8 @@
                             <input type="checkbox"
                                    id="gift"
                                    value="true"
+                                   v-bind:true-value="order.sendGift"
+                                   v-bind:false-value="order.dontSendGift"
                                    v-model="order.gift">
                             <label for="gift">Ship as Gift?</label>
                         </div>
@@ -112,7 +114,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-md-12 offset-11">
+                        <div class="col-md-12 offset-6">
                             <button
                                     type="submit"
                                     class="btn btn-primary submit"
@@ -163,7 +165,9 @@
                 zip: '123456',
                 state: 'AL',
                 method: 'Home',
-                gift: false
+                gift: "Send as a Gift",
+                sendGift: "Send as a Gift",
+                dontSendGift: "Don't send as a Gift"
             },
             showProduct: true,
         },
