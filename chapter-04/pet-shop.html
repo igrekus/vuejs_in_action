@@ -101,12 +101,13 @@
                         <div class="col-md-12 boxes offset-4">
                             <input type="radio"
                                    id="home"
-                                   value="Home"
+                                   v-bind:value="order.home"
                                    v-model="order.method">
                             <label for="home">Home</label>
+                            &nbsp&nbsp&nbsp
                             <input type="radio"
                                    id="business"
-                                   value="Business"
+                                   v-bind:value="order.business"
                                    v-model="order.method">
                             <label for="business">Business</label>
                         </div>
@@ -164,7 +165,9 @@
                 city: 'Craptown',
                 zip: '123456',
                 state: 'AL',
-                method: 'Home',
+                method: 'Home address',
+                home: "Home address",
+                business: "Business address",
                 gift: "Send as a Gift",
                 sendGift: "Send as a Gift",
                 dontSendGift: "Don't send as a Gift"
