@@ -51,7 +51,7 @@
                     </span>
                     <span class="inventory-message" v-else>Buy now!</span>
                     <div class="rating">
-                        <span class="rating" v-for="n in 5">⭐</span>
+                        <span v-bind:class="{'rating-active' : checkRating(n)}" v-for="n in 5">☆</span>
                     </div>
                 </div>
             </div>
@@ -165,6 +165,7 @@
                 price: 2000,
                 image: 'assets/images/product-fullsize.png',
                 availableInventory: 10,
+                rating: 3
             },
             cart: [],
             order: {
@@ -209,6 +210,9 @@
             },
             submitForm: function () {
                 console.log('submitted');
+            },
+            checkRating: function(n) {
+                return this.product.rating - n >= 0;
             }
         },
         filters: {
