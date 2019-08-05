@@ -5,9 +5,11 @@ header h1{
 body {
     max-width: 970px !important;
 }
+
 .cart {
     padding: 20px 50px;
 }
+
 .boxes {
     margin-top: 20px;
 }
@@ -24,6 +26,7 @@ body {
 .pagecheckout {
     padding: 20px 50px;
 }
+
 .description {
     font-size: 150%;
     margin-top:50px;
@@ -35,13 +38,13 @@ body {
     font-size: 120%;
 }
 
-
 .product {
     margin-top: 30px;
     margin-left: 20px;
     max-height:300px;
     max-width:100%;
 }
+
 .figure {
 
 }
@@ -50,12 +53,14 @@ body {
     content: "\2605";
     position: absolute;
 }
+
 .rating {
     display: inline;
     margin-left: 10px;
     margin-top: 10px;
     float:right;
 }
+
 .rating > span {
     display: inline-block;
     position: relative;
