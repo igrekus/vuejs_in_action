@@ -7,6 +7,7 @@
     <link rel='stylesheet' type='text/css' href='../assets/css/app.css'/>
     <link rel='stylesheet' href='../bootstrap/css/bootstrap.css'>
     <script src='../vue.js'></script>
+    <script src="../axios.js"></script>
 </head>
 <body>
 <div id='app'>
@@ -239,6 +240,11 @@
             }
         },
         created: () => {
+            axios.get('../database/products.json')
+                .then(response => {
+                    this.products = response.data.products;
+                    console.log(this.products);
+                });
             if (APP_LOG_LIFECYCLE_EVENTS) {
                 console.log('created');
             }
