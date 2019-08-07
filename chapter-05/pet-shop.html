@@ -24,39 +24,42 @@
         </div>
     </header>
     <main>
-        <div class="row product">
-            <div class="row" v-if="showProduct">
-                <div class="col-md-2 offset-1">
-                    <figure>
-                        <img v-bind:src="product.image">
-                    </figure>
-                </div>
-                <div class="col-md-6 offset-2 description">
-                    <h1 v-text="product.title"></h1>
-                    <p v-html="product.description"></p>
-                    <p class="price">
-                        {{ product.price | formatPrice }}
-                    </p>
-                    <button type="button" class="btn btn-primary btn-lg" v-on:click="addToCart(product.id)"
-                            v-if="canAddToCart">
-                        Add to cart
-                    </button>
-                    <button type="button" disabled="true" class="btn btn-primary btn-lg" v-else>
-                        Add to cart
-                    </button>
-                    <span class="inventory-message" v-if="product.availableInventory - cartItemCount === 0">
+        <div v-if="showProduct">
+            <div v-for="product in products">
+                <div class="row product">
+                    <div class="col-md-2 offset-1">
+                        <figure>
+                            <img v-bind:src="product.image">
+                        </figure>
+                    </div>
+                    <div class="col-md-6 offset-2 description">
+                        <h1 v-text="product.title"></h1>
+                        <p v-html="product.description"></p>
+                        <p class="price">
+                            {{ product.price | formatPrice }}
+                        </p>
+                        <button type="button" class="btn btn-primary btn-lg" v-on:click="addToCart(product.id)"
+                                v-if="canAddToCart">
+                            Add to cart
+                        </button>
+                        <button type="button" disabled="true" class="btn btn-primary btn-lg" v-else>
+                            Add to cart
+                        </button>
+                        <span class="inventory-message" v-if="product.availableInventory - cartItemCount === 0">
                         All out!
                     </span>
-                    <span class="inventory-message" v-else-if="product.availableInventory - cartItemCount < 5">
+                        <span class="inventory-message" v-else-if="product.availableInventory - cartItemCount < 5">
                         Only {{ product.availableInventory - cartItemCount }} left!
                     </span>
-                    <span class="inventory-message" v-else>Buy now!</span>
-                    <div class="rating">
-                        <span v-bind:class="{'rating-active' : checkRating(n)}" v-for="n in 5">☆</span>
+                        <span class="inventory-message" v-else>Buy now!</span>
+                        <div class="rating">
+                            <span v-bind:class="{'rating-active' : checkRating(n)}" v-for="n in 5">☆</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div v-else>
+        </div>
+        <div v-else>
                 <div class="offset-2 row">Pet shop checkout</div>
                 <h3 class="offset-2 row">Enter your information</h3>
                 <div class="row">
@@ -67,13 +70,15 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-12 offset-1"><strong>Last name:</strong></div>
-                        <div class="col-md-12 offset-1"><input v-model.trim="order.lastName" class="form-control"></div>
+                        <div class="col-md-12 offset-1"><input v-model.trim="order.lastName" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-12 offset-1"><strong>Address:</strong></div>
-                        <div class="col-md-12 offset-1"><input v-model.trim="order.address" class="form-control"></div>
+                        <div class="col-md-12 offset-1"><input v-model.trim="order.address" class="form-control">
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -92,7 +97,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-12 offset-4"><strong>Zip / Postal code:</strong></div>
-                        <div class="col-md-12 offset-4"><input v-model.number="order.zip" class="form-control" type="number"></div>
+                        <div class="col-md-12 offset-4"><input v-model.number="order.zip" class="form-control"
+                                                               type="number"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -148,7 +154,6 @@
                             </pre>
                     </div>
                 </div>
-            </div>
         </div>
     </main>
 </div>
@@ -159,15 +164,7 @@
         el: '#app',
         data: {
             sitename: 'Vue.js Pet shop',
-            product: {
-                id: 1001,
-                title: 'Cat Food, 25lb bag',
-                description: 'A 25 pound bag of <em>irresistible</em>, organic goodness for your cat.',
-                price: 2000,
-                image: 'assets/images/product-fullsize.png',
-                availableInventory: 10,
-                rating: 3
-            },
+            products: [],
             cart: [],
             order: {
                 firstName: 'Crazy',
