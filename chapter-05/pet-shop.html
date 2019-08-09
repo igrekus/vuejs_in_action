@@ -236,7 +236,7 @@
                 console.log('beforeCreate');
             }
         },
-        created: () => {
+        created: function () {
             axios.get('../database/products.json')
                 .then(response => {
                     this.products = response.data.products;
