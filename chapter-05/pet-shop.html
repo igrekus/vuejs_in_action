@@ -38,8 +38,8 @@
                         <p class="price">
                             {{ product.price | formatPrice }}
                         </p>
-                        <button type="button" class="btn btn-primary btn-lg" v-on:click="addToCart(product.id)"
-                                v-if="canAddToCart">
+                        <button type="button" class="btn btn-primary btn-lg" v-on:click="addToCart(product)"
+                                v-if="canAddToCart(product)">
                             Add to cart
                         </button>
                         <button type="button" disabled="true" class="btn btn-primary btn-lg" v-else>
@@ -53,7 +53,7 @@
                     </span>
                         <span class="inventory-message" v-else>Buy now!</span>
                         <div class="rating">
-                            <span v-bind:class="{'rating-active' : checkRating(n)}" v-for="n in 5">☆</span>
+                            <span v-bind:class="{'rating-active' : checkRating(n, product)}" v-for="n in 5">☆</span>
                         </div>
                     </div>
                 </div>
@@ -195,13 +195,22 @@
             cartItemCount: function () {
                 return this.cart.length || '';
             },
-            canAddToCart: function () {
-                return this.product.availableInventory > this.cartItemCount;
-            }
         },
         methods: {
-            addToCart: function (productId) {
-                this.cart.push(productId);
+            canAddToCart: function (product) {
+                return product.availableInventory > this.cartItemCount;
+            },
+            cartCount: function (id) {
+                let count = 0;
+                for (let i = 0; i < this.cart.length; ++i) {
+                    if (this.cart[i] === id) {
+                        count++;
+                    }
+                }
+                return count;
+            },
+            addToCart: function (product) {
+                this.cart.push(product.id);
             },
             showCheckout: function () {
                 this.showProduct = !this.showProduct;
@@ -209,8 +218,8 @@
             submitForm: function () {
                 console.log('submitted');
             },
-            checkRating: function(n) {
-                return this.product.rating - n >= 0;
+            checkRating: function(n, product) {
+                return product.rating - n >= 0;
             }
         },
         filters: {
