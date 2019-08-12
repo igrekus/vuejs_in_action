@@ -8,26 +8,43 @@
 <body>
 <main>
     <div id="app">
-        <input type="text" v-model="message"/>
-        <div>{{message}}</div>
-        <my-component></my-component>
-        <my-component></my-component>
-        <my-component></my-component>
+        <my-component v-bind:num="myNumber" v-bind:str="passedStr" v-bind:even="myNumber" v-bind:obj="passedObj"></my-component>
     </div>
     <script type="text/javascript">
         const MyComponent = {
-            template: `<div><button v-on:click="counter += 1">{{counter}}</button></div>`,
-            data: function () {
-                return {
-                    counter: 0,
-                };
-            }
+            template: `<div>Number: {{num}}<br/>
+                            String: {{str}}<br/>
+                            IsEven? {{even}}<br/>
+                            Object: {{obj.message}}</div>`,
+            props: {
+                num: {
+                    type: Number,
+                    required: true,
+                },
+                str: {
+                    type: String,
+                    default: "Hello world",
+                },
+                obj: {
+                    type: Object,
+                    default: () => {
+                        return {message: 'Hello from default object'};
+                    },
+                },
+                even: {
+                    validator: value => {
+                        return (value % 2 === 0);
+                    }
+                },
+            },
         };
         new Vue({
             el: '#app',
             data: function () {
                 return {
-                    message: '',
+                    passedStr: 'Hello from parent object',
+                    myNumber: 43,
+                    passedObj: {message: 'Passed object'},
                 }
             },
             components: {
