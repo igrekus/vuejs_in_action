@@ -8,17 +8,28 @@
 <body>
 <main>
     <div id="app">
-        <my-component text="World"></my-component>
+        <input type="text" v-model="message"/>
+        <my-component v-bind:text="message"></my-component>
     </div>
     <script type="text/javascript">
         const MyComponent = {
-            template: `<div>Hello {{ text }}!</div>`,
+            template: `<div>Hello {{ text }}! Dude, {{ testText }}!</div>`,
             props: {
                 text: String,
+            },
+            data: function () {
+                return {
+                    testText: 'duuuuuude',
+                }
             }
         };
         new Vue({
             el: '#app',
+            data: function () {
+                return {
+                    message: 'dude',
+                }
+            },
             components: {
                 'my-component': MyComponent,
             }
