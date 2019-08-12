@@ -8,27 +8,19 @@
 <body>
 <main>
     <div id="app">
-        <my-component v-bind:my-info="message" inline-template>
-            <div>
-                <p>
-                    inline-template - {{myInfo}}
-                </p>
-            </div>
-        </my-component>
+        <my-component/>
     </div>
+    <script id="my-component" type="text/x-template">
+        <p>
+            From x-template, hello world
+        </p>
+    </script>
     <script type="text/javascript">
         const MyComponent = {
-            props: {
-                myInfo: String,
-            },
+            template: '#my-component',
         };
         new Vue({
             el: '#app',
-            data: function () {
-                return {
-                    message: 'Hello world',
-                }
-            },
             components: {
                 'my-component': MyComponent,
             }
