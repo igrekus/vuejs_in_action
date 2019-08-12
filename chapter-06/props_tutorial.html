@@ -15,11 +15,12 @@
         <my-component></my-component>
     </div>
     <script type="text/javascript">
-        const counter = {counter: 0};
         const MyComponent = {
             template: `<div><button v-on:click="counter += 1">{{counter}}</button></div>`,
             data: function () {
-                return counter;
+                return {
+                    counter: 0,
+                };
             }
         };
         new Vue({
