@@ -4,3 +4,7 @@ vue\.js
 bootstrap/
 
 bootstrap3/
+
+node_modules/
+
+axios\.js
