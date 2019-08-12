@@ -8,43 +8,25 @@
 <body>
 <main>
     <div id="app">
-        <my-component v-bind:num="myNumber" v-bind:str="passedStr" v-bind:even="myNumber" v-bind:obj="passedObj"></my-component>
+        <my-component v-bind:my-info="message" inline-template>
+            <div>
+                <p>
+                    inline-template - {{myInfo}}
+                </p>
+            </div>
+        </my-component>
     </div>
     <script type="text/javascript">
         const MyComponent = {
-            template: `<div>Number: {{num}}<br/>
-                            String: {{str}}<br/>
-                            IsEven? {{even}}<br/>
-                            Object: {{obj.message}}</div>`,
             props: {
-                num: {
-                    type: Number,
-                    required: true,
-                },
-                str: {
-                    type: String,
-                    default: "Hello world",
-                },
-                obj: {
-                    type: Object,
-                    default: () => {
-                        return {message: 'Hello from default object'};
-                    },
-                },
-                even: {
-                    validator: value => {
-                        return (value % 2 === 0);
-                    }
-                },
+                myInfo: String,
             },
         };
         new Vue({
             el: '#app',
             data: function () {
                 return {
-                    passedStr: 'Hello from parent object',
-                    myNumber: 43,
-                    passedObj: {message: 'Passed object'},
+                    message: 'Hello world',
                 }
             },
             components: {
