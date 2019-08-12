@@ -9,25 +9,24 @@
 <main>
     <div id="app">
         <input type="text" v-model="message"/>
-        <my-component v-bind:text="message"></my-component>
+        <div>{{message}}</div>
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
     </div>
     <script type="text/javascript">
+        const counter = {counter: 0};
         const MyComponent = {
-            template: `<div>Hello {{ text }}! Dude, {{ testText }}!</div>`,
-            props: {
-                text: String,
-            },
+            template: `<div><button v-on:click="counter += 1">{{counter}}</button></div>`,
             data: function () {
-                return {
-                    testText: 'duuuuuude',
-                }
+                return counter;
             }
         };
         new Vue({
             el: '#app',
             data: function () {
                 return {
-                    message: 'dude',
+                    message: '',
                 }
             },
             components: {
