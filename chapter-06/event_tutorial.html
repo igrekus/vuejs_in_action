@@ -8,14 +8,15 @@
     <div id="app">
         {{counter}}<br/>
         <button v-on:click="incrementCounter">inc counter</button>
-        <my-component v-on:increment-me="incrementCounter"></my-component>
+        <my-component v-bind:my-counter.sync="counter"></my-component>
     </div>
     <script type="text/javascript">
         const MyComponent = {
             template: `<div><button v-on:click="childIncrementCounter">inc from child</button></div>`,
+            props: ['my-counter'],
             methods: {
                 childIncrementCounter: function () {
-                    this.$emit('increment-me');
+                    this.$emit('update:myCounter', this.myCounter + 1);
                 }
             }
         };
