@@ -45,11 +45,11 @@
                         <button type="button" disabled="true" class="btn btn-primary btn-lg" v-else>
                             Add to cart
                         </button>
-                        <span class="inventory-message" v-if="product.availableInventory - cartItemCount === 0">
+                        <span class="inventory-message" v-if="product.availableInventory - cartCount(product.id) === 0">
                         All out!
                     </span>
-                        <span class="inventory-message" v-else-if="product.availableInventory - cartItemCount < 5">
-                        Only {{ product.availableInventory - cartItemCount }} left!
+                        <span class="inventory-message" v-else-if="product.availableInventory - cartCount(product.id) < 5">
+                        Only {{ product.availableInventory - cartCount(product.id) }} left!
                     </span>
                         <span class="inventory-message" v-else>Buy now!</span>
                         <div class="rating">
@@ -198,7 +198,7 @@
         },
         methods: {
             canAddToCart: function (product) {
-                return product.availableInventory > this.cartItemCount;
+                return product.availableInventory > this.cartCount(product.id);
             },
             cartCount: function (id) {
                 let count = 0;
