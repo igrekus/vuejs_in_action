@@ -8,6 +8,7 @@
     <form-component
             :author="authorLabel"
             :title="titleLabel">
+        <h1>{{ header }}</h1>
     </form-component>
 </div>
 
@@ -16,6 +17,7 @@
         template: `
 <div>
     <form>
+        <slot></slot>
         <label for="title">{{ title }}</label>
         <input type="text" id="title">
         <br/>
@@ -35,6 +37,7 @@
             return {
                 titleLabel: 'The Title:',
                 authorLabel: 'The Author',
+                header: 'Book Author Form',
             }
         }
     })
