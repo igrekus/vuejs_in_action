@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='UTF-8'>
+    <title>Dynamic components</title>
+    <script src='../vue.js'></script>
+</head>
+<body>
+<div id="app">
+    <book-component></book-component>
+</div>
+
+<script>
+    const BookComponent = function (resolve, reject) {
+        setTimeout(function () {
+            resolve({
+                template:`<div><h1>Async Component</h1></div>`
+            });
+        }, 1000);
+    };
+
+    new Vue({
+        el: '#app',
+        components: {'book-component': BookComponent}
+    })
+</script>
+</body>
+</html>
