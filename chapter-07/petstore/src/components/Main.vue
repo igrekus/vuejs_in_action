@@ -1,5 +1,7 @@
 <template>
-    <div>mein epta</div>
+    <div>
+        mein epta
+    </div>
 </template>
 
 <script>
